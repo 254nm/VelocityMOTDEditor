@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>com.velocitypowered</groupId>
+  <artifactId>velocity-jar</artifactId>
+  <versioning>
+    <lastUpdated>20220716051157</lastUpdated>
+    <snapshot>
+      <localCopy>true</localCopy>
+    </snapshot>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>3.1.3-SNAPSHOT</value>
+        <updated>20220716051157</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>3.1.3-SNAPSHOT</value>
+        <updated>20220716051157</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+  <version>3.1.3-SNAPSHOT</version>
+</metadata>
