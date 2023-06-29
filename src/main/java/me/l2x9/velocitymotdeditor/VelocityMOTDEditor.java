@@ -6,7 +6,7 @@ import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.util.Favicon;
-import com.velocitypowered.proxy.VelocityServer;
+import lombok.Getter;
 import me.l2x9.velocitymotdeditor.listeners.ProxyPingListener;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
@@ -27,16 +27,17 @@ import java.util.List;
         authors = {"254n_m"}
 )
 public class VelocityMOTDEditor {
-    private final ProxyServer server;
+   @Getter private final ProxyServer server;
     private final Logger logger;
     private ConfigurationNode config;
     private File configFile;
+    private static VelocityMOTDEditor instance;
 
     @Inject
     public VelocityMOTDEditor(ProxyServer server, Logger logger) {
+        instance = this;
         this.server = server;
         this.logger = logger;
-
         try {
             loadConfig();
         } catch (Throwable t) {
@@ -46,7 +47,7 @@ public class VelocityMOTDEditor {
 
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
-        server.getEventManager().register(this, new ProxyPingListener((VelocityServer) server, config, loadFavicons()));
+        server.getEventManager().register(this, new ProxyPingListener(config, loadFavicons()));
     }
 
     private List<Favicon> loadFavicons() {
@@ -78,5 +79,11 @@ public class VelocityMOTDEditor {
         File dataFolder = new File("plugins", getClass().getAnnotation(Plugin.class).id());
         if (!dataFolder.exists()) dataFolder.mkdirs();
         return dataFolder;
+    }
+    public static VelocityMOTDEditor getInstance() {
+        return instance;
+    }
+    public void log(String format, Object... args) {
+        logger.info(Utils.translateColorCodes(String.format(format,args)));
     }
 }
